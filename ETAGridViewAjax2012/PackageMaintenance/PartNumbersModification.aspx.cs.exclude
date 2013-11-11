@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Text;
+public partial class PackageMaintenance_PartNumbersModification : System.Web.UI.Page
+{
+    StringBuilder sd = new StringBuilder(2500);
+    #region Page Methods
+
+
+    /// <summary>
+    /// Handles the Load event of the Page control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!Page.IsPostBack)
+        {
+            string Partnumbers = Request.Form["Hidden1"]; ;      
+
+            
+          //  this.NewGvwpartlist.DataSource = Common.ConvertStringToDataTable(Partnumbers,';');
+            DataTable dt = Common.ConvertStringToDataTable(Partnumbers, ';');
+           
+            // Set checklist
+            foreach(DataRow dr in dt.Rows)
+            {
+           //CBLPartNumbers
+                string itemvalue = dr["partno"].ToString().Replace("INV:", ""); 
+                ListItem item = new ListItem(itemvalue);
+                CBLPartNumbers.Items.Add(item); 
+            }
+
+          //  NewGvwpartlist.DataBind();
+        
+        }
+
+    }
+
+
+  
+    #endregion
+
+
+  public string getSelected()
+    {
+        sd.Length = 0;
+        foreach (ListItem item in CBLPartNumbers.Items)
+        {
+            if (item.Selected)
+            {
+                // list the selected items
+               string[] itemarray=item.Text.Split('@');
+               sd.Append(string.Format("{0},", itemarray[0]));    
+            }
+        }
+
+        this.Label1.Text = sd.ToString();
+        return sd.ToString(); 
+    }
+
+
+    
+}

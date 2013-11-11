@@ -1,0 +1,185 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<H2>ETA Administration
+<HR color=navy></H2>
+
+<DIV style="WIDTH: 500px">
+Welcome to the ETA Administration Page!
+<BR>
+<BR>
+The purpose of this page is to provide a reference and help notes.  It 
+is intended to grow as the system is maintained, and each administrator 
+to add their own input.
+</DIV>
+<BR>
+<BR>Table Of Contents
+<BR>
+<LI><A href="default.htm#history">History:</A> 
+<LI><A href="default.htm#testPackage">Test Package:</A> 
+<LI><A href="default.htm#database">Database:</A> 
+<LI><A href="default.htm#asp">ASP:</A> 
+<LI><A href="default.htm#permissions">Permissions:</A> 
+<LI><A href="default.htm#security">Security:</A>
+<LI><A href="default.htm#webSqlConnection">Web Server/SQL Server Communication:</A>
+<LI><A href="default.htm#DataMaintenance">Data Maintenance:</A>
+<LI><A href="default.htm#Images">Images:</A>
+<BR>
+<BR>
+<HR color=navy>
+<HR color=navy>
+<BR>
+<A name=history><STRONG>History:</STRONG> </A><STRONG>
+<BR></STRONG>This system started out in MS Access 97 in 1999. 
+The system grew very large, and problems plauged the system. The developer 
+(Tom George from TIEM Design Engineering) 
+left TIEM before  it was finished. It was upgraded  to MS Access 2000 
+in 2001 by Magnalinea.
+<BR>
+<BR>
+In 2001, 
+"Phase 1" of the 
+present form was put in place by 
+Magnalinea.   It is comprised of one web server and one database server.  
+  Stability was the main reason for change to web format.  The lightweight 
+web user interface was an added benefit to reduce network traffic and application 
+speed.  This phase is the core function of packages.
+<BR>
+<BR>
+In 2002, "Phase 2" was started to add ECI functionality, reports, Scheduling functions,
+ and various improvements.
+<BR>
+<BR>
+System developed by: <BR>Kurt 
+LaCourt&nbsp;<BR> Magnalinea Corporation <BR>941 25th street<BR>Columbus, 
+IN<BR>
+          (812) 376-8977  
+       
+<BR>
+<BR>
+<A name=testPackage><STRONG>Test 
+Package:</STRONG> </A><STRONG>
+<BR></STRONG>
+The test package 
+in this system is "XXX0". It has full functionality and is littered with ECIs, 
+etc.
+          
+        
+<BR>
+<BR>
+<A name=database><STRONG>Database:</STRONG></A><STRONG>
+<BR></STRONG>
+Microsoft SQL server 2000 (8.0) Standard edition.
+<BR><BR>
+System is broken into three parts (databases): ETA, 
+EmployeeData, and ECI.&nbsp; Transactions are used to ensure data integrity.
+
+<BR>
+<BR>
+<A name=asp><STRONG>ASP:</STRONG></A><STRONG>
+<BR></STRONG>
+Majority is site is written on *.asp pages.  As a general rule, VBScript is 
+used for server side actions, and jscript is used for client side actions.  The
+exception is where date calculations or configured message boxes are used - these
+are not available in jscript at time of authorship.  VBScript is used for client
+side action in these cases.
+
+
+<BR>
+<BR>
+<A name=permissions><STRONG>Permissions:</STRONG></A><STRONG>
+<BR></STRONG>
+Permissions are granted in the wwwroot folder (tiem-web - C:\Intetpub\
+wwwroot).  IIS manages permissions based on windows login.
+
+
+<BR>
+<BR>
+<A name=security><STRONG>Security:</STRONG></A><STRONG>
+<BR></STRONG>Security is handled by IIS also. Current configuration is suitable 
+for Intranet, but not Internet. HTTPS: must be enabled before this is to be 
+considered for Internet access. 
+
+
+<BR>
+<BR>
+<A name=webSqlConnection><STRONG>Web Server/SQL Server Communication:</STRONG></A><STRONG>
+<BR></STRONG>ODBC is used for communications between the webserver and Database.  The 
+ODBC resides on the webserver as a System DSN, uses TCP/IP (NOT NAMED PIPES), and SQL authentication.  
+The user account resides on the SQL server, and is User "ETA" and password "ETA".  
+It has "dbOwner" permissions to allow all the functions of the system.  Each web page 
+has the provider string with UID and PWD in the server side script.  This is needed 
+since the UID and PWD in the System DSN is usually ignored (microsoft known bug).
+
+
+<BR>
+<BR>
+<A name=DataMaintenance><STRONG>Data Maintenance:</STRONG></A>
+<BR>
+The goal of the ETA system is to be self-maintaining everywhere possible.  Functions are provided to
+allow users (DE) to make changes to the data as needed.  It is better to provide users with a 
+proper means to make changes than to tempt hacking to get desired results.  
+<BR>
+<BR>In the infancy 
+of this project, Dave Moore (Design Engineer) was given permissions to perform data cleaning.  
+This also required Enterprise Manager to be installed on his PC.  The frequency of erroneous data 
+requiring cleanup dwindled to approximately one per month.  Upon Dave Moore's departure, no 
+replacement was selected.
+<BR>
+<BR>
+Most of the data modification functions are located in the "Engineering Toolbox", where most of 
+the ETA work is done.  The administration level tools are located in the "Package Administration" 
+section.  There is a link in the Package Administration navigation frame called "Data Admin".  This 
+is where odd but necessary data tools are located.
+
+
+<BR>
+<BR>
+<A name=Images><STRONG>Images:</STRONG></A>
+<BR>
+There are several groupings of images used in this system:
+<BR>
+<BR>
+PDF:
+<BR>
+These are only for ISO required documents.  The intention is to have a paperless system.  These 
+are the biggest maintenance point for this system, which is otherwise user maintainied.  Whenever 
+the documents are changed, they must be re-created in Adobe Acrobat, with all the field names 
+correct for interface with PdfGenerator.asp.  New fields must be added to PdfGenerator.asp if they 
+are to be populated with data from the database.
+<BR>
+<BR>
+GIF:
+<BR>
+These are used primarily on webpages in HTML code for effect and instruction.
+<BR>
+<BR>
+JPG:
+<BR>
+These are usually photographs used to show details, such as for ECI explanations.
+<BR>
+<BR>
+NOTES:
+<BR>
+In the ECI section, there are two sets of Revision symbols (RevA.gif, RevA.jpg, etc.).  This is 
+needed for PDF rendering.  The gif images are used in the web pages, and the jpg images are larger 
+and are used for creating PDFs.  The PDFs do not work well with the smaller images, and appear 
+pixelated on screen and when printed out.  It was hard to read, so the larger jpg images are used 
+to correct this behavior.
+
+</LI>
+              
+             
+
+
+
+
+
+
+
+
+</BODY>
+</HTML>

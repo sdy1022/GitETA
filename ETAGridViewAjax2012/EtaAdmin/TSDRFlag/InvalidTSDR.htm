@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Invalid TSDR Form </title>
+    <link href="../../Scripts/JqueryUI/themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="../../Scripts/JqueryUI/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../../Scripts/Site.css" rel="stylesheet" type="text/css" />
+
+    <script src="../../Scripts/JqueryUI/jquery-1.7.2.min.js" type="text/javascript"></script>
+
+    <script src="../../Scripts/JqueryUI/jquery.easyui.min.js" type="text/javascript"></script>
+
+    <script src="../../Scripts/JqueryUI/jquery.pagination.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+
+        /*
+        *
+        * Date: 06/06/2013
+        * Js file for General Datagrid Template
+        */
+        // Customized Code
+        var defaultpagesize = 25;
+        var defaultpage = 1;
+        //var currentpackage = "";
+        var gridtitle = "";
+        var userinfo = "";
+        var roleinfo = "";
+        var tablecolumninputs = "";
+        var tcoarray = new Array();
+        var handlername = "";
+        var idfieldname = "";
+        var sortfieldname = "";
+        var isadmin = false;
+        var activeeci = "";
+
+        function InitValues() {
+            defaultpagesize = 25;
+            defaultpage = 1;
+            var temppack = getURLParam("Package");
+
+
+            gridtitle = "Invalid TSDR Table";
+            handlername = "http://colweb01/test/ConfigutaroTranferWCF/ConfiguratorTransferEditService.svc";
+            idfieldname = "TID";
+            sortfieldname = "TID";
+            tcoarray.push({ name: "TID", width: 60, editable: 0 });
+            tcoarray.push({ name: "PartNo", width: 150, editable: 0 });
+            tcoarray.push({ name: "Minor", width: 150, editable: 1 });
+            tcoarray.push({ name: "Description", width: 360, editable: 0 });
+            tcoarray.push({ name: "TMHU_View", width: 360, editable: 1 });
+            tcoarray.push({ name: "From_ECI", width: 360, editable: 1 });
+            tcoarray.push({ name: "To_ECI", width: 360, editable: 1 });
+
+        }
+
+
+        $(function() {
+
+            $.ajax(
+    {
+        async: true,
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: "http://localhost:60792/ConfiguratorTransferEditService.svc/test",
+        dataType: "json",
+        data: '',
+        success: function(content) {
+            alert(content);
+        },
+        error: function(msg) {
+            debugger;
+            alert("failed:" + msg);
+        }
+    });
+
+            //$('[id=mod*]');
+            // alert(getURLParam("Package"));
+
+            //     var role = getURLParam("Admin");
+            //            activeeci = getURLParam("activeeci");
+            //           
+            //            InitValues();
+            //            SetColumnsInput();
+            //            // Get user info
+            //            userinfo = $("#userinfo").val();
+            //            if (userinfo.length >= 0) {
+            //                PageInit(userinfo);
+            //            }
+        });
+    
+    </script>
+
+</head>
+<body>
+    <form>
+        <div>
+            <table id="test">
+            </table>
+        </div>
+        <%-- ----------------------------Modify data----------------------------------%>
+        <div id="UpdateActionInfoDialog" class="easyui-dialog" style="width: 360px; height: 300px;
+                                                                                                                                                             	padding: 10px 20px" closed="true" resizable="true" modal="true" buttons="#dlg-buttons"
+             align="center">
+        
+            <table id="tblUpdate">
+                <tr>
+                    <th colspan="2">
+                        Update Status
+                    </th>
+                </tr>
+                <tr>
+                    <td class="rightalign">
+                        <label for="TID">
+                            TID：</label>
+                    </td>
+                    <td class="leftalign">
+                        <label for="TID" id="TID1">
+                        </label>
+                    </td>
+                    <td>
+                </tr>
+                <tr>
+                    <td class="rightalign">
+                        <label for="TMHU_View">
+                            Status：</label>
+                    </td>
+                    <td class="leftalign">
+                        <select id="tmhuviewmod" name="TMHU_View1" class="easyui-combobox">
+                            <option value="-1">Invalid</option>
+                            <option value="0">Processed</option>
+                            <option value="1">UnProcessed</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>

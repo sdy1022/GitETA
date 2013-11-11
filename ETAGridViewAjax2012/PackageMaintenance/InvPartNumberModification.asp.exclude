@@ -1,0 +1,75 @@
+<%@  language="VBSCRIPT" %>
+<html>
+<head>
+    <title>Document Title</title>
+</head>
+<form  id="formInvPartNumberModification"  method="post">
+<body>
+
+    <script type="text/javascript">
+        function clicksubmit() 
+        {
+            var selectedstring="";
+            var checkCount = 0;
+            for (j = 0; j < 1000; j++) 
+            {
+                var vItem = 'checkbox' + j;
+                var chk = document.getElementById(vItem);
+                if (chk == null)
+                 {
+
+
+                    break;
+                }
+                else {
+
+                    if (chk.checked) {
+                        // alert(chk.value);
+                        if(chk.value!="underdefined")
+                        selectedstring += chk.value + ";"
+                    }
+                }
+
+            }
+
+          //  alert(selectedstring);
+            var hiddenttext = document.getElementById("Hidden1");
+            hiddenttext.value = selectedstring;
+
+           // alert(hiddenttext.value);
+            formInvPartNumberModification.action = "LinkModuleEcrCheck1.asp?Package=" + "xxx0" + "&Module=" + "N4L0-4";
+            formInvPartNumberModification.submit();
+            
+        }
+       
+    </script>
+
+    <%
+
+dim partnumbers
+partnumbers=Request.Form("Hidden1")
+
+dim parray
+'Split(MyString, "x", -1, 1)
+parray=Split(partnumbers,";",-1,1) 
+int length
+int i
+length=UBound(parray)-1
+'Response.Write(UBound(parray))
+for i=0 to length	
+
+'Response.Write(parray(i))
+
+    %>
+    <%
+
+Response.Write ("<input type=checkbox  name='checkbox" & i & "' value=" & parray(i) &" >" & parray(i) & "<br>" ) 
+
+Next
+    %>
+      <input id="Hidden1" type="hidden" name="Hidden1"   >
+    <input type="submit" value='Submit' onclick='clicksubmit()'><br>
+</body>
+</form>
+<!-- Insert HTML here -->
+</html>

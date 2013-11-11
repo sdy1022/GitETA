@@ -1,0 +1,551 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".js" #>
+/*
+* Date  : <# Write(DateTime.Now.ToString());#>
+* Autho : Dayang Sun 
+* Desc  : Js file for General Datagrid Template
+*/
+// Define General Variables
+var defaultpagesize = 25;
+var defaultpage = 1;
+var gridtitle = "";
+var userinfo = "";
+var roleinfo = "";
+// Define Page Variables, can add more if quired
+var para1 = "XXX0";
+//var para2=""
+
+// Add ClearInput When User click Add 
+
+function ClearAddInput() {
+    // might need to add more to clean up
+    //$("#partnoadd1").val("");
+    //$("#partnoadd2").val("");
+   
+}
+// Display Selected Info , called when modify button clicked
+function DisplaySelectInfo() {  
+
+   // $("#packagemod").val(currentpackage);
+   // var selectionitem = $("#test").datagrid('getSelections')[0]; // var BindID = selectionitem.TID;
+   // $("#TID1").text(selectionitem.TID); // Tid is label not textbox
+   // $("#partnomod1").val(selectionitem.PartNo.substring(0, 5));
+  //  $("#tmhuviewmod").combobox('setValue', selectionitem.TMHU_View);    
+
+}
+
+// Check input change or not 
+function IsInputsChange() {
+
+   // var selectionitem = $("#test").datagrid('getSelections')[0];
+
+  //  if (selectionitem.PartNo != $("#PartNo1").val()) {
+    //    return 1;
+   // }   
+
+    //if (selectionitem.TMHU_View != $("#TMHU_View1").combobox('getValue')) {
+      //  return 1;
+    //}
+    //....
+    return 0;
+}
+
+// Get Parameter Info
+function getURLParam(name) {
+    // get query string part of url into its own variable
+
+    var url = window.location.href;
+    var query_string = url.split("?");
+
+    if (url.split("?").length > 1) {
+        // make array of all name/value pairs in query string
+        var params = query_string[1].split("&");
+
+        // loop through the parameters
+        var i = 0;
+        while (i < params.length) {
+            // compare param name against arg passed in
+            var param_item = params[i].split("=");
+            if (param_item[0] == name) {
+                // if they match, return the value
+                return param_item[1];
+            }
+            i++;
+        }
+    }
+    return "";
+}
+
+
+//Show add dialog
+function ShowCreateActionInfoDialog() {
+
+	// Set search filed value 
+    $("#para1").val(para1);    
+	$("#AddActionInfoDialog").dialog('open').dialog('setTitle', "Add Item");   
+   ClearAddInput();
+}
+
+
+//Show update dialog
+function ShowUpdateActionInfoDialog() {   
+    var CheckID = $("#test").datagrid('getSelections');
+    if (CheckID.length == 1) {
+        $("#UpdateActionInfoDialog").dialog('open').dialog('setTitle', 'Update Info');       
+        DisplaySelectInfo();
+    }
+    else {
+        $.messager.alert("Alert", "You Have Selected <font color='red' size='6'>" + CheckID.length + "</font> Row(s)");
+    }
+}
+
+
+// Load Datagrid based on parameter
+function LoadDatagrid(queryParame) {
+
+    // alert("probably reload should be better. loaddatagrid is fired");
+    if (typeof queryParame === "undefined") {
+        // use default
+		// paramdata = { mode: 'Qry', PackageName: currentpackage, pageSize: defaultpagesize, pageNumber: defaultpage };
+    } else {
+      //  paramdata = { mode: 'Qry', PackageName: queryParame.PackageName, pageSize: queryParame.pageSize, pageNumber: queryParame.pageNumber };
+    }
+    $.ajax({
+        url: 'CRUDPageRegistryHanlder.ashx',
+        type: 'post',
+        dataType: 'json',
+        data: paramdata, // { size: '10', ItemName: name },
+        beforeSend: function() {
+            $('#test').datagrid("loading"); //loadding effect
+        },
+        success: function(json) {
+            $("#test").datagrid("loadData", json); //loading date
+            $("#test").datagrid('reload'); //without this method , refresh will have error
+        },
+        error: function(data) {
+            alert("Error Happed: " + data.responseText);
+        }
+    });
+}
+
+//Load Datagrid without parameter
+function LoadDatagridWOPa(queryParame) {
+    queryParame = {
+        mode: 'Qry',
+        PackageName: $("#txtActionName").val(),
+        pageSize: defaultpagesize,
+        pageNumber: defaultpage
+    };
+    LoadDatagrid(queryParame);
+}
+
+//Show Delete Dialog
+function DeleteActionInfoByClick() {  
+    var CheckID = $("#test").datagrid('getSelections');
+    if (CheckID.length >= 1) {
+        
+        var ids = "";
+        for (var i = 0; i < CheckID.length; i++) {
+            ids += CheckID[i].TID + ",";
+        }
+        ids = ids.substring(0, ids.length - 1);
+
+        //确认删除信息
+        $.messager.confirm("Alert", "Are You Sure To Delete？", function(deleteData) {
+            if (deleteData) {
+               
+                $.post("CRUDPageRegistryHanlder.ashx", { mode: 'Del', ID: ids }, function(data) {
+                    if (data == "OK") {
+                        
+                        $.messager.alert("Alert", "Delete Successful");                        
+                        LoadDatagridWOPa();
+                        $("#test").datagrid('reload');
+                     
+                        $("#test").datagrid('clearSelections');
+                    } else {
+                        $.messager.alert("Alert", "Delete Failed" + data);
+                    }
+                });
+            }
+        });
+    }
+    else {
+        $.messager.alert("Alert", "Please Select Rows Your want to Delete.");
+    }
+	}
+
+//// Init Values
+function InitValues() {
+    defaultpagesize = 25;
+    defaultpage = 1;
+    para1 = "XXX0";
+    gridtitle = "title whatever you like";
+}
+
+////Init datagrid table (not loading)
+function InitDatagrid(queryParame) {
+    if (typeof queryParame === "undefined") {
+        // use default
+        //paramdata = { mode: 'Qry', PackageName: currentpackage, pageSize: defaultpagesize, pageNumber: defaultpage };
+    } else {
+       // paramdata = { mode: 'Qry', PackageName: queryParame.PackageName, pageSize: queryParame.pageSize, pageNumber: queryParame.pageNumber };
+    }  
+
+    // for some reason, if put url value here , it will be fired twice
+    // better not to put url here , create another loadgrid function
+	// need to modify 
+    $('#test').datagrid({
+        title: gridtitle,
+        iconCls: 'icon-save',
+        height: 800,
+        nowrap: true,
+        autoRowHeight: false,
+        striped: true,
+        collapsible: true,
+        fitColumns: true,  
+        frozenColumns: [[{ field: 'ck', checkbox: true}]], 
+        //url: "CRUDPageRegistryHanlder.ashx",
+        sortName: 'PartNo',
+        sortOrder: 'asc',
+        //striped:true,
+        border: true,
+        remoteSort: false,
+        idField: 'TID',
+        pagination: true,
+        rownumbers: true,
+        queryParams: paramdata,
+        columns: [[
+        //  { field: 'ck', checkbox: true },
+					{field: 'TID', title: 'TID', width: 60, sortable: true },
+                    { field: 'PartNo', title: "PartNo", width: 150, sortable: true },
+                    { field: 'Minor', title: "Minor", width: 150, sortable: true },
+                    { field: 'Description', title: 'Description', width: 360, sortable: true },
+                    { field: 'TMHU_View', title: 'TMHU_View', width: 360, sortable: true
+                    , formatter: function(value, row, index) {
+                        if (value == "1") {
+                            return "True";
+                        }
+                        else {
+                            return "False";
+                        }
+                    }
+
+                    },
+                     { field: 'From_ECI', title: 'From_ECI', width: 360, sortable: true },
+                     { field: 'To_ECI', title: 'To_ECI', width: 360, sortable: true }
+
+
+                ]],
+
+        toolbar: [{
+            id: 'btnadd',
+            text: 'Add',
+            iconCls: 'icon-add',
+            handler: function() {
+                
+                ShowCreateActionInfoDialog();
+            }
+        }, '-', {
+            id: 'btncut',
+            text: 'Modify',
+            iconCls: 'icon-cut',
+            handler: function() {
+                ShowUpdateActionInfoDialog();
+            }
+        }, '-', {
+            id: 'btnsave',
+            text: 'Delete',
+            iconCls: 'icon-remove',
+            handler: function() {
+                
+                DeleteActionInfoByClick();
+            }
+}]
+        });
+		// need to modify 
+        $('#test').datagrid("getPager").pagination(
+
+                    {
+                        pageSize: defaultpagesize, 
+                        pageList: [10, 15, 25], 
+                        beforePageText: 'Page ', 
+                        afterPageText: ' Of Total {pages} Pages',
+                        displayMsg: 'Current Showing {from} - {to} Record Total {total} Records',
+                        onSelectPage: function(pageNumber, pageSize) {
+                            defaultpage = pageNumber;
+                            defaultpagesize = pageSize;
+                            var queryParame = {
+                                mode: 'Qry',
+                                PackageName: currentpackage,
+                                pageNumber: pageNumber,
+                                pageSize: pageSize
+                            };
+                            $(this).pagination('loading');
+                            // $("#test").datagrid("load", queryParame);
+                            LoadDatagrid(queryParame);
+                            $(this).pagination('loaded');
+                        },
+                        onBeforeRefresh: function() {
+                            // alert("call reload grid from db  ?");
+                            return true;
+                        }
+
+                    });
+
+
+    }
+
+
+ ////Search
+    function InitSearch(queryParame) {
+        if (typeof queryParame === "undefined") {
+            // use default
+           // $("#txtActionName").val(currentpackage);
+        } else {
+
+            //$("#txtActionName").val(queryParame.PackageName);
+        }
+        // put value to searchbox
+
+        //按照条件进行搜索
+		// need to modify
+        $("#btnSerach").click(function() {
+
+            currentpackage = $("#txtActionName").val();
+            var queryParame = { mode: 'Qry',
+                PackageName: $("#txtActionName").val()
+                                           , pageSize: defaultpagesize
+                                           , pageNumber: defaultpage
+            };
+           
+            LoadDatagrid(queryParame);
+            return false;
+        });
+    }
+
+
+	////实现添加权限信息
+    function InitAddDiaglog() {
+
+	     // need to modify 
+        // setup validation rule
+        $("#partnoadd1").validatebox({
+            required: true,
+            validType: 'length[5,5]'
+        });
+
+        $("#partnoadd2").validatebox({
+            required: true,
+            validType: 'length[1,1]'
+        });
+
+        $("#partnoadd3").validatebox({
+            required: true,
+            validType: 'length[2,2]'
+        });
+
+        $("#minoradd").validatebox({
+            required: true,
+            validType: 'length[1,1]'
+        });
+
+        $("#descadd").validatebox({
+            required: true
+        });
+
+        $("#tmhuviewadd").validatebox({
+            required: true
+        });
+        $("#fromeciadd").validatebox({
+            required: true,
+            validType: 'length[9,9]'
+        });
+        $("#toeciadd").validatebox({
+            required: true,
+            validType: 'length[9,9]'
+        });
+
+
+        $("#btnAddActionInfo").click(function() {
+           
+           // alert(userinfo);
+            var validate = $("#ActionInfoAdd").form('validate');
+            //ActionInfoAdd is 
+            if (validate == false) {
+                return false;
+            }
+
+            //构造需要传递的参数给后台,RequestUrl,RequestHttpType,ActionName
+            var postData = {
+                mode: 'Add',
+                PartNo: $("#partnoadd1").val() + '-' + $("#partnoadd2").val() + currentpackage + '-' + $("#partnoadd3").val(),
+                Minor: $("#minoradd").val(),
+                Description: $("#descadd").val(),
+                TMHU_View: $("#tmhuviewadd").combobox('getValue'),
+                From_ECI: $("#fromeciadd").val(),
+                To_ECI: $("#toeciadd").val()
+            };
+
+            //异步实现添加信息
+            // another way to send ajax post
+            $.post("CRUDPageRegistryHanlder.ashx", postData, function(data) {
+                if (data == "OK") {
+                    //关闭层，刷新表单
+                    $("#AddActionInfoDialog").dialog('close');
+                    LoadDatagridWOPa();
+                }
+                else {
+                    $.messager.alert("Alert", "Add Failed，Please Check:" + data);
+                }
+            });
+        });
+    }
+
+	 //实现修改权限的信息
+    function InitUpdateDiaglog() {
+	    // need to modify
+        // setup validation rule
+        $("#partnomod1").validatebox({
+            required: true,
+            validType: 'length[5,5]'
+        });
+
+        $("#partnomod2").validatebox({
+            required: true,
+            validType: 'length[1,1]'
+        });
+
+        $("#partnomod3").validatebox({
+            required: true,
+            validType: 'length[2,2]'
+        });
+
+        $("#minormod").validatebox({
+            required: true,
+            validType: 'length[1,1]'
+
+        });
+
+        $("#descmod").validatebox({
+            required: true
+        });
+
+        $("#tmhuviewmod").validatebox({
+            required: true
+        });
+        $("#fromecimod").validatebox({
+            required: true,
+            validType: 'length[9,9]'
+        });
+        $("#toecimod").validatebox({
+            required: true,
+            validType: 'length[9,9]'
+        });
+
+
+
+
+        $("#btnUpdateActionInfo").click(function() {
+            //首先验证表单是否通过验证信息
+
+            var validate = $("#ActionInfoUpdate").form('validate');
+            if (validate == false) {
+                return false;
+            }
+
+            // At this point, can check if any value changed or not. if not, return false
+            if (IsInputsChange() == 0) {
+
+                return false;
+            }
+
+            //获取传递的参数,ActionName1，RequestUrl1，RequestHttpType1
+            var postData = {
+                mode: 'Update',
+                Tid: $("#TID1").text(),
+                PartNo: $("#partnomod1").val() + '-' + $("#partnomod2").val() + currentpackage + '-' + $("#partnomod3").val(),
+                Minor: $("#minormod").val(),
+                Description: $("#descmod").val(),
+                TMHU_View: $("#tmhuviewmod").combobox('getValue'),
+                From_ECI: $("#fromecimod").val(),
+                To_ECI: $("#toecimod").val()
+            };
+
+            //发送异步请求进行修改信息
+            $.post("CRUDPageRegistryHanlder.ashx", postData, function(data) {
+                if (data == "OK") {
+                    //关闭层，刷新表格
+                    $("#UpdateActionInfoDialog").dialog('close');
+                    LoadDatagridWOPa();
+                }
+                else {
+                    $.messager.alert("Alert", "Modify Failed，Please check:" + data);
+                }
+            });
+        });
+    }
+
+	//Get Current user role
+    function PageInit(uname) {
+
+        //获取传递的参数,ActionName1，RequestUrl1，RequestHttpType1
+        //GetCurrentUserRole
+        var postData = {
+            mode: 'Authorize',
+            Uid: uname
+        };
+
+        //发送异步请求进行修改信息
+        $.post("CRUDPageRegistryHanlder.ashx", postData, function(data) {
+            if (data == "Fail") {
+                $.messager.alert("Alert", "User Can Not Be Found ! The Current User Role Will Be Guest");
+            }
+            else {
+                // data is role value
+                roleinfo = data;
+                alert(userinfo+" is :"+ roleinfo);
+                PageProcess();
+            }
+        });
+
+
+    }
+
+
+	// only user role is fetched successfully and continue to display result
+    function PageProcess() {
+
+
+        var temp1 = getURLParam('package');
+        if (temp1 != "") {
+            currentpackage = temp1;
+        }
+
+        var queryParame = {
+            PackageName: currentpackage
+                                           , pageSize: defaultpagesize
+                                           , pageNumber: defaultpage
+        };
+
+        InitValues();
+        InitDatagrid(queryParame);
+        InitSearch(queryParame);
+        InitAddDiaglog();
+        InitUpdateDiaglog(queryParame);
+        LoadDatagrid(queryParame);
+
+
+
+    }
+    // page load function
+    $(function() {
+
+        debugger;
+        // Get user info
+        userinfo = $("#userinfo").val();
+        if (userinfo.length >= 0) {
+            PageInit(userinfo);
+        }
+    });
+       
+

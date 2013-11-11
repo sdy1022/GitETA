@@ -1,0 +1,117 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using Microsoft.Reporting.WebForms;
+using Subgurim.Controles;
+
+
+public partial class SOA_ReportViewer : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //ReportViewer1.Visible = true;
+        //DataTable dt = CommonDB.GetDTPartsInfoByNumber("90407-13010-71");
+        //ReportDataSource datasource = new ReportDataSource("STPartsInfo_SmartTeamAllPartsInfo", dt);
+        //ReportViewer1.LocalReport.DataSources.Clear();
+        //ReportViewer1.LocalReport.DataSources.Add(datasource);     
+
+        if (FileUploaderAJAX1.IsPosting)
+            this.managePost();
+
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        int count = this.FileUploaderAJAX1.historial.Count;
+        string filename = this.FileUploaderAJAX1.historial[count - 1].FileName;
+        //read text file and make a datatable 
+        string mappath = string.Format("{0}{1}", Server.MapPath(@"\ETAGridViewAjax\SOA\temp\"), filename);
+
+        if (System.IO.File.Exists(mappath))
+        {
+
+            DataTable dt = new DataTable();
+
+            DataColumn column;
+            // Create new DataColumn, set DataType,
+            // ColumnName and add to DataTable.   
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "PartNumber";
+            dt.Columns.Add(column);
+
+
+
+            string line;
+
+
+
+            System.IO.StreamReader file = new System.IO.StreamReader(mappath);
+            while ((line = file.ReadLine()) != null)
+            {
+                dt.Rows.Add(line);
+
+            }
+            file.Close();
+            // convert datatable to xml file
+
+            string result = Common.ConvertDataTableToXML(dt);
+            try
+            {
+
+                ReportViewer1.ProcessingMode = ProcessingMode.Local;
+                ReportViewer1.LocalReport.ReportPath = @"SOA\Report3.rdlc";
+                ReportDataSource datasource = new ReportDataSource("STPartsInfo_SmartTeamAllPartsInfo", CommonDB.GetDTPartsInfoByNumbers(result));
+                ReportViewer1.LocalReport.DataSources.Clear();
+                ReportViewer1.LocalReport.DataSources.Add(datasource);
+                ReportViewer1.LocalReport.Refresh();
+
+            }
+
+            catch (Exception err)
+            {
+
+                ;
+            }
+
+
+        }
+        else
+        {
+
+            ;
+        }
+        // 
+
+
+        //if (!string.IsNullOrEmpty(filename))
+        //{
+
+        //    ReportViewer1.ProcessingMode = ProcessingMode.Local;
+        //    ReportViewer1.LocalReport.ReportPath = @"SOA\Report3.rdlc";
+        //    DataTable dt = CommonDB.GetDTPartsInfoByNumber(this.TextBox1.Text.Trim().Replace('*', '%'));
+        //    ReportDataSource datasource = new ReportDataSource("STPartsInfo_SmartTeamAllPartsInfo", dt);
+        //    ReportViewer1.LocalReport.DataSources.Clear();
+        //    ReportViewer1.LocalReport.DataSources.Add(datasource);
+        //    ReportViewer1.LocalReport.Refresh();
+
+        //}
+
+    }
+
+
+    private void managePost()
+    {
+        HttpPostedFileAJAX pf = FileUploaderAJAX1.PostedFile;
+        FileUploaderAJAX1.File_RenameIfAlreadyExists = false;
+
+        if (pf.ContentType.Equals("text/plain"))
+            FileUploaderAJAX1.SaveAs("~/SOA/temp", pf.FileName);
+    }
+
+
+
+}

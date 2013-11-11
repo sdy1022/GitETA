@@ -1,0 +1,79 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="PartRegistryExcelGridView.ascx.cs"
+    Inherits="EngineeringTools_PartRegistry_PartRegistryExcelGridView" %>
+<div style="width: 50%">
+    <div style="float: left; padding-left: 4">
+        <asp:Button ID="btnSaveAll" runat="server" Height="30px" Text="Save All Change" Width="149px"
+            OnClick="btnSaveAll_Click" OnClientClick="return SaveValidate()" ValidationGroup="Fill" />&nbsp;
+    </div>
+</div>
+<div style="width: 50%; clear: both">
+    <p>
+    </p>
+    <asp:GridView ID="grdts" runat="server" Width="70%" Height="50%" AutoGenerateColumns="False"
+        CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True">
+        <AlternatingRowStyle BackColor="White" />
+        <Columns>
+            <asp:TemplateField HeaderText="ID">
+                <ItemTemplate>
+                    <%#Eval("ID")%>
+                </ItemTemplate>
+                <%--    <FooterTemplate>
+                        New Name:<asp:TextBox ID="tbNewName" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbNewName"
+                            ErrorMessage="Can not insert empty!" ForeColor="#FFFF66" ValidationGroup="Insert"></asp:RequiredFieldValidator>
+                    </FooterTemplate>--%>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="TFC">
+                <ItemTemplate>
+                    <asp:Label ID="lbTFC" runat="server" Text='<%#Eval("TFC")%>'></asp:Label>
+                    <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbTFC"
+                            ErrorMessage="Can not insert null!" ValidationGroup="Fill"></asp:RequiredFieldValidator>--%>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="ATT">
+                <ItemTemplate>
+                    <asp:Label ID="lbatt" runat="server" Text='<%#Eval("ATT")%>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="KEYCODE">
+                <ItemTemplate>
+                    <%#Eval("KEYCODE")%>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="ITEMCODE">
+                <ItemTemplate>
+                    <%#Eval("ITEMCODE")%>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="SELECTCODE">
+                <ItemTemplate>
+                    <%--   <%#Eval("TO_ECI") %>--%>
+                    <%--  <asp:TextBox ID="txttoeci" runat="server" Text='<%#Eval("SELECTCODE")%>'></asp:TextBox>--%>
+                    <asp:TextBox ID="txtselect" runat="server" Text='<%#Eval("SELECTCODE")%>' Width="70px"></asp:TextBox>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="NAME">
+                <ItemTemplate>
+                    <asp:TextBox ID="txttodate" runat="server" Text='<%#Eval("NAME")%>' ValidationGroup="Fill"
+                        Width="400px"></asp:TextBox>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Delete">
+                <%--<HeaderTemplate>
+                    <input id="chkdeleteAll" type="hidden" type="checkbox" />
+                </HeaderTemplate>--%>
+                <ItemTemplate>
+                    <asp:CheckBox ID="chkDelete" runat="server" />
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+        <%-- <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" HorizontalAlign="Center"
+                VerticalAlign="Middle" />--%>
+        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" HorizontalAlign="Center"
+            VerticalAlign="Middle" />
+        <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+        <RowStyle BackColor="#FFFBD6" ForeColor="#333333" HorizontalAlign="Center" VerticalAlign="Middle" />
+        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+    </asp:GridView>
+</div>
+<asp:HiddenField ID="HidState" runat="server" Value="[]" />
