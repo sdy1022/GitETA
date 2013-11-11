@@ -60,6 +60,12 @@ public partial class EngineeringTools_PartsList_EtagridView_PartListAddTSD : Sys
             {
                 Package = "XXX1";
             }
+            PackageActiveEci = Request.QueryString["PackageActiveEci"];
+
+            if (string.IsNullOrEmpty(PackageActiveEci))
+            {
+                PackageActiveEci = "XXX1E0009";
+            }
 
             // Load dropdownlists
             // Check for released status
@@ -162,7 +168,7 @@ public partial class EngineeringTools_PartsList_EtagridView_PartListAddTSD : Sys
 
             CommonDB.InsertTSDCopyPartList(Package, indexparent, inputtfc, dropindexparent, PackageActiveEci);
 
-            Response.Redirect(string.Format("PartsListTSD.aspx?Package={0}", Package));
+            Response.Redirect(string.Format("PartListTSD.aspx?Package={0}", Package));
 
 
         }

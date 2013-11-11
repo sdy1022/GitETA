@@ -109,7 +109,95 @@ public class PartRegistsryEntity
             _toeci = value;
         }
     }
+    private string _material1;
+    public string MATERIAL1
+    {
+        get
+        {
+            return _material1;
+        }
+        set
+        {
+           _material1 = value;
+        }
+    }
 
+    private string _material2;
+    public string MATERIAL2
+    {
+        get
+        {
+            return _material2;
+        }
+        set
+        {
+            _material2 = value;
+        }
+    }
+    private string _dwg;
+    public string DRW
+    {
+        get
+        {
+            return _dwg;
+        }
+        set
+        {
+            _dwg = value;
+        }
+    }
+
+    private string _comment;
+    public string COMMENT1
+    {
+        get
+        {
+            return _comment;
+        }
+        set
+        {
+            _comment = value;
+        }
+    }
+    private string _modfrom;
+    public string Mod_From
+    {
+        get
+        {
+            return _modfrom;
+        }
+        set
+        {
+            _modfrom = value;
+        }
+    }
+
+    private string _fromdate;
+    public string FROM_DATE
+    {
+        get
+        {
+            return _fromdate;
+        }
+        set
+        {
+            _fromdate = value;
+        }
+    }
+
+
+    private string _todate;
+    public string TO_DATE
+    {
+        get
+        {
+            return _todate;
+        }
+        set
+        {
+            _todate = value;
+        }
+    }
 }
 
 

@@ -47,7 +47,7 @@ function InitValues() {
     defaultpage = 1;
     var temppack = getURLParam("Package");
     if (temppack.length < 1) {
-        currentpackage = "XXX0";
+        currentpackage = "N121";
 
     } else {
         currentpackage = temppack; //"XXX0";
@@ -72,6 +72,16 @@ function InitValues() {
     tcoarray.push({ name: "From_ECI", width: 360, editable: 1 });
     tcoarray.push({ name: "To_ECI", width: 360, editable: 1 });
 
+    tcoarray.push({ name: "MATERIAL1", width: 150, editable: 1 });
+    tcoarray.push({ name: "MATERIAL2", width: 150, editable: 1 });
+    tcoarray.push({ name: "DRW", width: 150, editable: 1 });
+    tcoarray.push({ name: "COMMENT1", width: 360, editable: 1 });
+    
+    
+    
+    tcoarray.push({ name: "From_Date", width: 360, editable: 1 });
+    tcoarray.push({ name: "To_Date", width: 360, editable: 1 });
+    tcoarray.push({ name: "Mod_From", width: 150, editable: 0 });
 }
 //// Customized Code Done
 // Get value from array

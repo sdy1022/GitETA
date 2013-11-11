@@ -27,16 +27,7 @@ public partial class EngineeringTools_PartRegistry_PartRegistryAIO : System.Web.
                 userinfo.Value = Session["uid"].ToString();
             }
 
-            //if(string.IsNullOrEmpty(Request.QueryString["Package"].ToString()))
-            //{
 
-            //    packagevalue.Value = Request.QueryString["Package"].ToString();
-            //}
-            //else
-            //{
-
-            //    packagevalue.Value = "XXX0";
-            //}
         }
     }
 }

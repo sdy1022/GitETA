@@ -169,37 +169,57 @@
                 <asp:TextBox ID="txtcpkg" runat="server"></asp:TextBox>
                 </td>
             <td>
-                Assy Code</td>
+                &nbsp;</td>
                  <td>
+                     &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                Assy Code</td>
+            <td class="style2">
                 <asp:TextBox ID="txtassy" runat="server"></asp:TextBox>
                 </td>
+            <td>
+                &nbsp;</td>
+                 <td>
+                     &nbsp;</td>
         </tr>
         <tr>
             <td>
                 Pg1</td>
             <td class="style2">
                 <asp:TextBox ID="txtpg1" runat="server"></asp:TextBox>
-                </td>
-            <td>
-                Pg2</td>
-                 <td>
-                <asp:TextBox ID="txtpg2" runat="server"></asp:TextBox>
-                </td>
-        </tr>
-        <tr>
-            <td>
-                Pg3</td>
-            <td class="style2">
-                <asp:TextBox ID="txtpg3" runat="server"></asp:TextBox>
                  </td>
             <td>
-                PartPart List to Copy&nbsp; </td>
+                                Part List To Paste Into&nbsp; </td>
                  <td>
                                
                 <asp:DropDownList ID="ddlcattach" runat="server">
                     <asp:ListItem Value="-Select Part List-" Text="-Select Part List-"></asp:ListItem>
                 </asp:DropDownList>
             </td>
+        </tr>
+         <tr>
+            <td>
+                Pg2</td>
+            <td class="style2">
+                <asp:TextBox ID="txtpg2" runat="server"></asp:TextBox>
+                </td>
+            <td>
+                &nbsp;</td>
+                 <td>
+                     &nbsp;</td>
+        </tr>
+         <tr>
+            <td>
+                Pg3</td>
+            <td class="style2">
+                <asp:TextBox ID="txtpg3" runat="server"></asp:TextBox>
+                </td>
+            <td>
+                &nbsp;</td>
+                 <td>
+                     &nbsp;</td>
         </tr>
     </table>
                       
