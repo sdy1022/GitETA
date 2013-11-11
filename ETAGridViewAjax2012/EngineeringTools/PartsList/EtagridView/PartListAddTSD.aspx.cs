@@ -84,6 +84,10 @@ public partial class EngineeringTools_PartsList_EtagridView_PartListAddTSD : Sys
                 ddlattach.DataValueField = "ModuleNumber";
 
 
+                ddlcattach.DataSource = dt1;
+                ddlcattach.DataTextField = "ModuleNumber";
+                ddlcattach.DataValueField = "ModuleNumber";
+
 
             }
 
