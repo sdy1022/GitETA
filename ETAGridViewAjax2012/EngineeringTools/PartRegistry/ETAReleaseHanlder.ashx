@@ -54,9 +54,9 @@ public class ETAReleaseHanlder : IHttpHandler, IRequiresSessionState
         // Get total result rows without paging
         int count = 0; //list.Count; //查询总条数
         int pagesize = 10; Convert.ToInt32(context.Request["pageSize"]);
-            // == 0 ? 25 : Convert.ToInt32(context.Request["size"]);  //页行数
+        // == 0 ? 25 : Convert.ToInt32(context.Request["size"]);  //页行数
         int pagenum = 0;// Convert.ToInt32(context.Request["pageNumber"]);
-            //== 0 ? 1 : Convert.ToInt32(context.Request["page1"]); //当前页
+        //== 0 ? 1 : Convert.ToInt32(context.Request["page1"]); //当前页
         string package = context.Request["PackageName"];
         context.Response.ContentType = "text/plain";
         List<FormAEntity> list = ETAEntityRepository.GetFormAEntityList(package, pagesize,
@@ -109,11 +109,11 @@ public class ETAReleaseHanlder : IHttpHandler, IRequiresSessionState
         int count = 0; //list.Count; //查询总条数
         int pagesize = 10;//Convert.ToInt32(context.Request["pageSize"]);
         // == 0 ? 25 : Convert.ToInt32(context.Request["size"]);  //页行数
-        int pagenum =0;//Convert.ToInt32(context.Request["pageNumber"]);
+        int pagenum = 0;//Convert.ToInt32(context.Request["pageNumber"]);
         //== 0 ? 1 : Convert.ToInt32(context.Request["page1"]); //当前页
         string aitemid = context.Request["AItemId"];
         context.Response.ContentType = "text/plain";
-        List<FormCEntity> list = ETAEntityRepository.GetFormCEntityList(aitemid, pagesize,pagenum, ref count);
+        List<FormCEntity> list = ETAEntityRepository.GetFormCEntityList(aitemid, pagesize, pagenum, ref count);
         // need optimization 
         //StringBuilder builder = new StringBuilder();
 
@@ -166,9 +166,13 @@ public class ETAReleaseHanlder : IHttpHandler, IRequiresSessionState
         string result = CommonDB.InsertPrNewEntry(context.Request["PartNo"], context.Request["Minor"],
                                                   context.Request["Description"],
                                                   Convert.ToInt16(context.Request["TMHU_View"]),
+                                                  context.Request["Material1"],
+                                                  context.Request["Material2"],
+                                                  context.Request["Comment"],
+                                                  context.Request["ModFrom"],
+                                                  context.Request["DRW"],
                                                   context.Request["From_ECI"],
                                                   context.Request["To_ECI"]);
-
 
         context.Response.Write(result);
     }
@@ -192,6 +196,11 @@ public class ETAReleaseHanlder : IHttpHandler, IRequiresSessionState
         string result = CommonDB.UpdatePrNewEntry(Convert.ToInt16(context.Request["TID"]), context.Request["PartNo"],
                                                   context.Request["Minor"], context.Request["Description"],
                                                   Convert.ToInt16(context.Request["TMHU_View"]),
+                                                   context.Request["Material1"],
+                                                  context.Request["Material2"],
+                                                  context.Request["Comment"],
+                                                  context.Request["ModFrom"],
+                                                  context.Request["DRW"],
                                                   context.Request["From_ECI"], context.Request["To_ECI"]);
         context.Response.Write(result);
     }

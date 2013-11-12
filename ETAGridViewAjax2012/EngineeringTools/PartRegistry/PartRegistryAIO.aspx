@@ -24,7 +24,7 @@
             //$('[id=mod*]');
             // alert(getURLParam("Package"));
 
-            var role = getURLParam("Admin");
+            var role = getURLParam("zzzz");
             activeeci = getURLParam("activeeci");
             if (role != "undefined") {
                 if (role == "1") {
@@ -41,7 +41,11 @@
             }
         });
 
-           
+
+        function Select1_onclick() {
+
+        }
+
     </script>
 
 </head>
@@ -73,7 +77,7 @@
         </table>
     </div>
     <%-- ----------------------------Add data----------------------------------%>
-    <div id="AddActionInfoDialog" class="easyui-dialog" style="width: 360px; height: 350px;
+    <div id="AddActionInfoDialog" class="easyui-dialog" style="width: 360px; height: 500px;
         padding: 10px 20px" closed="true" resizable="true" modal="true" buttons="#dlg-buttons"
         align="center">
         <form id="ActionInfoAdd" method="post" novalidate="novalidate">
@@ -113,6 +117,42 @@
             </tr>
             <tr>
                 <td class="rightalign">
+                    <label for="Material1">
+                        Material1：</label>
+                </td>
+                <td>
+                    <input type="text" id="addMaterial1" name="addMaterial1" />
+                </td>
+            </tr>
+            <tr>
+                <td class="rightalign">
+                    <label for="Material2">
+                        Material2：</label>
+                </td>
+                <td>
+                    <input type="text" id="addMaterial2" name="addMaterial2" />
+                </td>
+            </tr>
+            <tr>
+                <td class="rightalign">
+                    <label for="Comment">
+                        Comment：</label>
+                </td>
+                <td>
+                    <input type="text" id="addcomment" name="addcomment" />
+                </td>
+            </tr>
+            <tr>
+                <td class="rightalign">
+                    <label for="ModFrom">
+                        Mod_From：</label>
+                </td>
+                <td>
+                    <input type="text" id="addmodfrom" name="addmodefrom" />
+                </td>
+            </tr>
+            <tr>
+                <td class="rightalign">
                     <label for="TMHU_View">
                         TMHU_View：</label>
                 </td>
@@ -120,6 +160,22 @@
                     <select id="addTMHU_View" name="TMHU_View" class="easyui-combobox">
                         <option value="1">True</option>
                         <option value="0">False</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="rightalign">
+                    <label for="TMHU_View">
+                        DRW：</label>
+                </td>
+                <td class="leftalign">
+                    <select id="adddrw" name="addddldrw" class="easyui-combobox">
+                        <option value=""></option>
+                        <option value="A">A</option>
+                        <option value="N">N</option>
+                        <option value="S">S</option>
+                        <option value="K">K</option>
+                        <option value="C">C</option>
                     </select>
                 </td>
             </tr>
@@ -152,7 +208,7 @@
         </form>
     </div>
     <%-- ----------------------------Modify data----------------------------------%>
-    <div id="UpdateActionInfoDialog" class="easyui-dialog" style="width: 360px; height: 300px;
+    <div id="UpdateActionInfoDialog" class="easyui-dialog" style="width: 360px; height: 500px;
         padding: 10px 20px" closed="true" resizable="true" modal="true" buttons="#dlg-buttons"
         align="center">
         <form id="ActionInfoUpdate" method="post" novalidate="novalidate">
@@ -209,6 +265,42 @@
             </tr>
             <tr>
                 <td class="rightalign">
+                    <label for="Material1">
+                        Material1：</label>
+                </td>
+                <td>
+                    <input type="text" id="modMaterial1" name="modMaterial1" />
+                </td>
+            </tr>
+            <tr>
+                <td class="rightalign">
+                    <label for="Material2">
+                        Material2：</label>
+                </td>
+                <td>
+                    <input type="text" id="modMaterial2" name="modMaterial2" />
+                </td>
+            </tr>
+            <tr>
+                <td class="rightalign">
+                    <label for="Comment">
+                        Comment：</label>
+                </td>
+                <td>
+                    <input type="text" id="modcomment" name="modcomment" />
+                </td>
+            </tr>
+            <tr>
+                <td class="rightalign">
+                    <label for="ModFrom">
+                        Mod_From：</label>
+                </td>
+                <td>
+                    <input type="text" id="modmodfrom" name="modmodfrom" />
+                </td>
+            </tr>
+            <tr>
+                <td class="rightalign">
                     <label for="TMHU_View">
                         TMHU_View：</label>
                 </td>
@@ -216,6 +308,22 @@
                     <select id="modTMHU_View" name="TMHU_View1" class="easyui-combobox">
                         <option value="1">True</option>
                         <option value="0">False</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="rightalign">
+                    <label for="TMHU_View">
+                        DRW：</label>
+                </td>
+                <td class="leftalign">
+                    <select id="modddldrw" name="modddldrw" class="easyui-combobox" onclick="return Select1_onclick()">
+                          <option value=""></option>
+                        <option value="A">A</option>
+                        <option value="N">N</option>
+                        <option value="S">S</option>
+                        <option value="K">K</option>
+                        <option value="C">C</option>
                     </select>
                 </td>
             </tr>

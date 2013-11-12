@@ -51,9 +51,9 @@ public class CRUDPageRegistryHanlder : IHttpHandler, IRequiresSessionState
         // Get total result rows without paging
         int count = 0; //list.Count; //查询总条数
         int pagesize = Convert.ToInt32(context.Request["pageSize"]);
-            // == 0 ? 25 : Convert.ToInt32(context.Request["size"]);  //页行数
+        // == 0 ? 25 : Convert.ToInt32(context.Request["size"]);  //页行数
         int pagenum = Convert.ToInt32(context.Request["pageNumber"]);
-            //== 0 ? 1 : Convert.ToInt32(context.Request["page1"]); //当前页
+        //== 0 ? 1 : Convert.ToInt32(context.Request["page1"]); //当前页
         string package = context.Request["PackageName"];
         context.Response.ContentType = "text/plain";
         List<PartRegistsryEntity> list = PartRegistsryEntityRepository.GetPartRegistsryEntityList(package, pagesize,
@@ -110,6 +110,11 @@ public class CRUDPageRegistryHanlder : IHttpHandler, IRequiresSessionState
         string result = CommonDB.InsertPrNewEntry(context.Request["PartNo"], context.Request["Minor"],
                                                   context.Request["Description"],
                                                   Convert.ToInt16(context.Request["TMHU_View"]),
+                                                  context.Request["Material1"],
+                                                  context.Request["Material2"],
+                                                  context.Request["Comment"],
+                                                  context.Request["ModFrom"],
+                                                  context.Request["DRW"],
                                                   context.Request["From_ECI"],
                                                   context.Request["To_ECI"]);
 
@@ -136,6 +141,11 @@ public class CRUDPageRegistryHanlder : IHttpHandler, IRequiresSessionState
         string result = CommonDB.UpdatePrNewEntry(Convert.ToInt16(context.Request["TID"]), context.Request["PartNo"],
                                                   context.Request["Minor"], context.Request["Description"],
                                                   Convert.ToInt16(context.Request["TMHU_View"]),
+                                                   context.Request["Material1"],
+                                                  context.Request["Material2"],
+                                                  context.Request["Comment"],
+                                                  context.Request["ModFrom"],
+                                                  context.Request["DRW"],
                                                   context.Request["From_ECI"], context.Request["To_ECI"]);
         context.Response.Write(result);
     }

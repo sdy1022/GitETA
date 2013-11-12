@@ -41,6 +41,7 @@ function GetRowFlag(aeci, feci, toeci) {
     };
 
 }
+
 ///
 function InitValues() {
     defaultpagesize = 25;
@@ -65,23 +66,20 @@ function InitValues() {
     idfieldname = "TID";
     sortfieldname = "PartNo";
     tcoarray.push({ name: "TID", width: 60, editable: 0 });
-    tcoarray.push({ name: "PartNo", width: 150, editable: 0 });
-    tcoarray.push({ name: "Minor", width: 150, editable: 1 });
+    tcoarray.push({ name: "PartNo", width: 280, editable: 0 });
+    tcoarray.push({ name: "Minor", width: 100, editable: 1 });
     tcoarray.push({ name: "Description", width: 360, editable: 0 });
-    tcoarray.push({ name: "TMHU_View", width: 360, editable: 1 });
-    tcoarray.push({ name: "From_ECI", width: 360, editable: 1 });
-    tcoarray.push({ name: "To_ECI", width: 360, editable: 1 });
-
+    tcoarray.push({ name: "TMHU_View", width: 150, editable: 1 });
+    tcoarray.push({ name: "From_ECI", width: 200, editable: 1 });
+    tcoarray.push({ name: "To_ECI", width: 200, editable: 1 });
     tcoarray.push({ name: "MATERIAL1", width: 150, editable: 1 });
     tcoarray.push({ name: "MATERIAL2", width: 150, editable: 1 });
     tcoarray.push({ name: "DRW", width: 150, editable: 1 });
     tcoarray.push({ name: "COMMENT1", width: 360, editable: 1 });
-    
-    
-    
-    tcoarray.push({ name: "From_Date", width: 360, editable: 1 });
-    tcoarray.push({ name: "To_Date", width: 360, editable: 1 });
+    tcoarray.push({ name: "From_Date", width: 200, editable: 1 });
+    tcoarray.push({ name: "To_Date", width: 200, editable: 1 });
     tcoarray.push({ name: "Mod_From", width: 150, editable: 0 });
+
 }
 //// Customized Code Done
 // Get value from array
@@ -137,7 +135,6 @@ function DisplaySelectInfo(flag) {
     // cleanup all errormsage
     //validatebox-text validatebox-invalid
     modselectionlist.each(function(index, value) {
-
         $("#" + this.id).removeClass('validatebox-invalid');
     });
 
@@ -147,22 +144,16 @@ function DisplaySelectInfo(flag) {
         $("#btnUpdateActionInfo").first().removeAttr('disabled');
         // enable all mod field
         modselectionlist.each(function(index, value) {
-
             $("#" + this.id).prop("readonly", false);
             // $("#" + this.id).removeClass('validatebox-invalid');
         });
-
     } else {
-
-
         $("#modTMHU_View").combobox('disable');
+        $("#modddldrw").combobox('disable');
         if (flag == 2) {
             // only to-eci is editable
             $("#modFlag").text("Only To_Eci Is Editable");
-
-
             modselectionlist.each(function(index, value) {
-
                 if (this.id.substring(3) == "To_ECI") {
                     $("#" + this.id).prop("readonly", false); //.removeAttr('disabled');
                 } else {
@@ -176,22 +167,18 @@ function DisplaySelectInfo(flag) {
             $("#modFlag").text("Read Only");
             $("#btnUpdateActionInfo").first().attr("disabled", "disabled");
             modselectionlist.each(function(index, value) {
-
                 $("#" + this.id).prop("readonly", true); //attr("disabled", "disabled");
-
-
-
             });
         }
         ;
     }
 
-    modselectionlist.each(function(index, value) {
-        // alert(index + ': ' + value);
-        $("#" + this.id).val(selectionitem[this.id.substring(3)]);
-        // $("#" + this.id).attr('readonly', true);
+    //    modselectionlist.each(function(index, value) {
+    //        // alert(index + ': ' + value);
+    //        $("#" + this.id).val(selectionitem[this.id.substring(3)]);
+    //        // $("#" + this.id).attr('readonly', true);
 
-    });
+    //    });
     // Customized Code
 
     $("#modpackage").val(currentpackage);
@@ -200,6 +187,15 @@ function DisplaySelectInfo(flag) {
     $("#modpartno2").val(selectionitem.PartNo.substring(6, 7));
     $("#modpartno3").val(selectionitem.PartNo.substring(12, 14));
     $("#modTMHU_View").combobox('setValue', selectionitem.TMHU_View);
+    $("#modMaterial1").val(selectionitem.MATERIAL1);
+    $("#modMaterial2").val(selectionitem.MATERIAL2);
+    $("#modcomment").val(selectionitem.COMMENT1);
+    $("#modmodfrom").val(selectionitem.Mod_From);
+    $("#modddldrw").combobox('setValue', selectionitem.DRW);
+    $("#modMinor").val(selectionitem.Minor);
+    $("#modDescription").val(selectionitem.Description);
+    $("#modFrom_ECI").val(selectionitem.From_ECI);
+    $("#modTo_ECI").val(selectionitem.From_ECI);
     //    $("#toecimod").val(selectionitem.To_ECI);
     // Customized Code Done
 
@@ -213,10 +209,8 @@ function IsInputsChange() {
     var modselectionlist = $("[id*=mod]");
 
     modselectionlist.each(function(index, value) {
-
         var item = GetArrayItemByName(this.id.substring(3), tcoarray);
         if (typeof (item) != "undefined") {
-
             if (item.editable != 0) {
                 // if column is not editable , skip 
                 if (selectionitem[this.id.substring(3)] != $("#" + this.id).val()) {
@@ -236,6 +230,52 @@ function IsInputsChange() {
         if (selectionitem.TMHU_View != $("#modTMHU_View").combobox('getValue')) {
             return 1;
         }
+        if (selectionitem.DRW != $("#modddldrw").combobox('getValue')) {
+            return 1;
+        }
+        if (selectionitem.MATERIAL1 != $("#modMaterial1").val() ) {
+            return 1;
+        }
+        if (selectionitem.MATERIAL2 != $("#modMaterial2").val()) {
+            return 1;
+        }
+        if (selectionitem.COMMENT1 != $("#modcomment").val()) {
+            return 1;
+        }
+        if (selectionitem.Mod_From != $("#modmodfrom").val()) {
+            return 1;
+        }
+        if (selectionitem.Description != $("#modcomment").val()) {
+            return 1;
+        }
+        if (selectionitem.Minor != $("#modMinor").val()) {
+            return 1;
+        }
+
+        if (selectionitem.From_ECI != $("#modFrom_ECI").val()) {
+            return 1;
+        }
+        if (selectionitem.To_ECI != $("#modTo_ECI").val()) {
+            return 1;
+        }
+        
+//        $("#modpackage").val(currentpackage);
+//        $("#modTID").text(selectionitem.TID);
+//        $("#modpartno1").val(selectionitem.PartNo.substring(0, 5));
+//        $("#modpartno2").val(selectionitem.PartNo.substring(6, 7));
+//        $("#modpartno3").val(selectionitem.PartNo.substring(12, 14));
+//        $("#modTMHU_View").combobox('setValue', selectionitem.TMHU_View);
+//        $("#modMaterial1").val(selectionitem.MATERIAL1);
+//        $("#modMaterial2").val(selectionitem.MATERIAL2);
+//        $("#modcomment").val(selectionitem.COMMENT1);
+//        $("#modmodfrom").val(selectionitem.Mod_From);
+//        $("#modddldrw").combobox('setValue', selectionitem.DRW);
+//        $("#modMinor").val(selectionitem.Minor);
+//        $("#modDescription").val(selectionitem.Description);
+//        $("#modFrom_ECI").val(selectionitem.From_ECI);
+//        $("#modTo_ECI").val(selectionitem.From_ECI);
+      
+
         if (selectionitem.PartNo != $("#modpartno1").val() + '-' + $("#modpartno2").val() + currentpackage + '-' + $("#modpartno3").val()) {
             return 1;
         }
@@ -258,7 +298,7 @@ function IsInputsChange() {
 // Get Parameter Info
 function getURLParam(name) {
     // get query string part of url into its own variable
-
+    //activeeci=12345&Admin=1
     var url = window.location.href;
     var queryString = url.split("?");
 
@@ -601,7 +641,12 @@ function InitDatagrid(queryParame) {
                 PartNo: $("#addpartno1").val() + '-' + $("#addpartno2").val() + currentpackage + '-' + $("#addpartno3").val(),
                 Minor: $("#addMinor").val(),
                 Description: $("#addDescription").val(),
+                Material1: $("#addMaterial1").val(),
+                Material2: $("#addMaterial2").val(),
+                Comment: $("#addcomment").val(),
+                ModFrom: $("#addmodfrom").val(),
                 TMHU_View: $("#addTMHU_View").combobox('getValue'),
+                DRW: $("#adddrw").combobox('getValue'),
                 From_ECI: $("#addFrom_ECI").val(),
                 To_ECI: $("#addTo_ECI").val()
             };
@@ -616,7 +661,6 @@ function InitDatagrid(queryParame) {
                     $.messager.alert("Alert", "Add Failed，Please Check:" + data);
                 }
             });
-
             // Customized Code Done
         });
     }
@@ -624,8 +668,6 @@ function InitDatagrid(queryParame) {
     // Init Updating Dialog
 
     function InitUpdateDiaglog() {
-
-
         // Customized Code 
         // setup validation rule
         $("#modpartno1").validatebox({
@@ -651,6 +693,30 @@ function InitDatagrid(queryParame) {
         $("#modDescription").validatebox({
             required: true
         });
+
+        $("#modMaterial1").validatebox({
+            novalidate: true
+        });
+
+        $("#modMaterial2").validatebox({
+            novalidate: true
+        });
+
+        $("#modcomment").validatebox({
+            novalidate: true
+        });
+
+        $("#modmodfrom").validatebox({
+            novalidate: true
+        });
+        $("#modddldrw").validatebox({
+
+            novalidate: true
+
+        });
+
+
+
 
         $("#modTMHU_View").validatebox({
             required: true
@@ -709,19 +775,25 @@ function InitDatagrid(queryParame) {
 
                 return false;
             }
+
+           
             var postData = {
                 mode: 'Update',
                 Tid: $("#modTID").text(),
                 PartNo: $("#modpartno1").val() + '-' + $("#modpartno2").val() + currentpackage + '-' + $("#modpartno3").val(),
                 Minor: $("#modMinor").val(),
                 Description: $("#modDescription").val(),
+                Material1: $("#modMaterial1").val(),
+                Material2: $("#modMaterial2").val(),
+                Comment: $("#modcomment").val(),
+                ModFrom: $("#modmodfrom").val(),
                 TMHU_View: $("#modTMHU_View").combobox('getValue'),
+                DRW: $("#modddldrw").combobox('getValue'),
                 From_ECI: $("#modFrom_ECI").val(),
                 To_ECI: $("#modTo_ECI").val()
             };
             $.post(handlername, postData, function(data) {
                 if (data == "OK") {
-
                     $("#UpdateActionInfoDialog").dialog('close');
                     LoadDatagrid();
                 } else {
