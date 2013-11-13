@@ -8,28 +8,20 @@
     <link href="../../Scripts/JqueryUI/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../Scripts/JqueryUI/themes/default/easyui.css" rel="stylesheet" type="text/css" />
     <link href="../../Scripts/Site.css" rel="stylesheet" type="text/css" />
-
     <script src="../../Scripts/JqueryUI/jquery-1.7.2.min.js" type="text/javascript"></script>
-
     <script src="../../Scripts/JqueryUI/jquery.easyui.min.js" type="text/javascript"></script>
-
     <script src="../../Scripts/JqueryUI/jquery.pagination.js" type="text/javascript"></script>
-
     <script src="../../Scripts/Site.js" type="text/javascript"></script>
-
     <script type="text/javascript">
-
         // page load function
         $(function() {
             //$('[id=mod*]');
             // alert(getURLParam("Package"));
-
             var role = getURLParam("zzzz");
             activeeci = getURLParam("activeeci");
             if (role != "undefined") {
                 if (role == "1") {
                     isadmin = true;
-
                 }
             }
             InitValues();
@@ -40,12 +32,8 @@
                 PageInit(userinfo);
             }
         });
-
-
         function Select1_onclick() {
-
         }
-
     </script>
 
 </head>

@@ -7,8 +7,6 @@
     <script type="text/javascript">
 
          var tcarrary = {
-
-				
              "TID": "TID",
              "PartNo": "ParNo",
              "Minor": "Minor",
@@ -18,7 +16,7 @@
          };
 
 //         [[      
-//					{fasdasdfdasfield: 'TID', title: 'TID', width: 60, sortable: true },
+//					{field: 'TID', title: 'TID', width: 60, sortable: true },
 //                    { field: 'PartNo', title: "PartNo", width: 150, sortable: true },
 //                    { field: 'Minor', title: "Minor", width: 150, sortable: true },
 //                    { field: 'Description', title: 'Description', width: 360, sortable: true },
