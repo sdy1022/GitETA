@@ -158,8 +158,8 @@ public partial class EngineeringTools_FormC_FormCDataTSD : System.Web.UI.Page
         {
 
             // The code CItemId
-            PackageName = "N121";
-                //Request.QueryString["Package"];
+            // PackageName = "N121";
+            PackageName=Request.QueryString["Package"];
             //PackageName = "XXX0";
             Module = Request.QueryString["Module"];
 
@@ -268,7 +268,7 @@ public partial class EngineeringTools_FormC_FormCDataTSD : System.Web.UI.Page
     {
         //'**Get current Form C items
         //'**Apply filter from TabStrip if required
-     //   DataTable dt = null;
+        //   DataTable dt = null;
         if (string.IsNullOrEmpty(Module))
         {
             /*
@@ -311,29 +311,29 @@ WHERE     (ID = 20836)
 
         IEnumerable<string> rows1 = (from t in NewDataTable.AsEnumerable()
                                      group t by t.Field<string>("FROM_ECI")
-                                     into groupedT
+                                         into groupedT
 
-                                     let topdate =
-                                         groupedT.OrderByDescending(gt => gt.Field<string>("FROM_DATE"))
-                                         .First().Field<string>("FROM_DATE")
-                                  
-                                        //select new
-                                        //           {
+                                         let topdate =
+                                             groupedT.OrderByDescending(gt => gt.Field<string>("FROM_DATE"))
+                                             .First().Field<string>("FROM_DATE")
 
-                                        //               FinalValue = groupedT.Key + "_" + topdate,
-                                        //               // FinalVA groupedT.First(gt2=>gt2.Field<string>("FROM_DATE")==topdate).Field<string>("From_ECI")
-                                        //           };
-                                    select groupedT.Key + "_" + topdate).OrderByDescending(p=>(p.Split('_')[1]));
-                    
+                                         //select new
+                                         //           {
+
+                                         //               FinalValue = groupedT.Key + "_" + topdate,
+                                         //               // FinalVA groupedT.First(gt2=>gt2.Field<string>("FROM_DATE")==topdate).Field<string>("From_ECI")
+                                         //           };
+                                         select groupedT.Key + "_" + topdate).OrderByDescending(p => (p.Split('_')[1]));
+
         //var rows2 = rows1.OrderBy(p=>p);
-      //  var rows = (new[] {"ALL"}).Concat(rows1);
-       
-                   
+        //  var rows = (new[] {"ALL"}).Concat(rows1);
+
+
         var rows = rows1.Concat((new[] { "ALL" }));
 
         // Get filterd datatable by Revision 
-     //   ddlrevision.DataValueField = "FinalValue";
-       // ddlrevision.DataTextField = "FinalValue";
+        //   ddlrevision.DataValueField = "FinalValue";
+        // ddlrevision.DataTextField = "FinalValue";
         ddlrevision.DataSource = rows;
         // decide select index by revision value
 
@@ -359,9 +359,9 @@ WHERE     (ID = 20836)
             // Get addtfc value
 
             Label lbladdtfc = e.Row.FindControl("lbladdtfc") as Label;
-            if(lbladdtfc!=null )
+            if (lbladdtfc != null)
             {
-                if(lbladdtfc.Text==PackageName)
+                if (lbladdtfc.Text == PackageName)
                 {
 
                     lbladdtfc.BackColor = System.Drawing.Color.GreenYellow;
@@ -416,8 +416,8 @@ WHERE     (ID = 20836)
             //input = row.FindControl("lbldelindex") as Label;
             //if (!(input.Text.Length == 7 || input.Text.Length == 9))
             //{
-                input = null;
-           // }
+            input = null;
+            // }
         }
 
         return input;
@@ -437,7 +437,7 @@ WHERE     (ID = 20836)
             return;
         }
         DataTable dt = CommonTool.GetCategory();
-            //CommonDB.GetCachedCategorySet().Tables[0];
+        //CommonDB.GetCachedCategorySet().Tables[0];
         // Get first three 
 
 
@@ -513,7 +513,7 @@ WHERE     (ID = 20836)
             pagecode = del_index.Substring(3, 2);
 
             //?
-            partcode = del_index.Substring(5,del_index.Length-5);
+            partcode = del_index.Substring(5, del_index.Length - 5);
 
 
 
@@ -656,7 +656,7 @@ WHERE     (ID = 20836)
             Gvwpartlist.DataBind();
             isgridviewchange = false;
         }
-        
+
     }
     protected void ddlrevision_SelectedIndexChanged(object sender, EventArgs e)
     {

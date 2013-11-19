@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ETAGridViewAjax2012", "ETAGridViewAjax2012\", "{BBD1CA1A-B86B-4CB6-A95D-E322206F698C}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFramework = "3.5"
+		Debug.AspNetCompiler.VirtualPath = "/ETAGridViewAjax2012"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\Desktop\TinaProjectsWin7\ETAGit\ETAGridViewAjax2012\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\ETAGridViewAjax2012\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/ETAGridViewAjax2012"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\Desktop\TinaProjectsWin7\ETAGit\ETAGridViewAjax2012\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\ETAGridViewAjax2012\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "58318"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBD1CA1A-B86B-4CB6-A95D-E322206F698C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBD1CA1A-B86B-4CB6-A95D-E322206F698C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
