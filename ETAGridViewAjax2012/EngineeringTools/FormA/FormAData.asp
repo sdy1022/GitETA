@@ -11,6 +11,7 @@ Dim cn
 Dim rs
 Dim sSql
 Dim Package
+Dim Revision
 
 Package=Request.QueryString("Package")
 'for shortcut for PC  CDW 10-15-07
